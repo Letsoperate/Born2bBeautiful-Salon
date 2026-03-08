@@ -1101,7 +1101,7 @@
           </ul>
 
           <p class="copyright">
-            &copy; 2024
+            &copy; 2026
             <a href="#home" class="copyright-link">BORN 2B BEAUTIFUL</a>. All
             Rights Reserved.
             <span style="margin-left: 12px">
@@ -1117,6 +1117,31 @@
               >
             </span>
           </p>
+
+          <div class="site-attribution">
+            <span>Created by</span>
+            <a
+              href="https://github.com/Letsoperate"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="./assets/images/letsoperate-logo.png"
+                alt="Letsoperate"
+                class="letsoperate-logo"
+              />
+              <strong>Letsoperate</strong>
+            </a>
+            <span>&middot;</span>
+            <a
+              href="https://github.com/Letsoperate"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="github-link"
+            >
+              <ion-icon name="logo-github"></ion-icon> GitHub
+            </a>
+          </div>
         </div>
       </div>
     </footer>
@@ -1936,6 +1961,76 @@
       }
       .cb-msg .voice-play-btn:hover {
         color: hsl(20, 55%, 52%);
+      }
+
+      /* Mobile responsive chatbot */
+      @media (max-width: 600px) {
+        #chatbot-fab {
+          bottom: 70px;
+          right: 12px;
+          width: 60px;
+          height: 78px;
+          border-radius: 16px;
+        }
+        #chatbot-fab #robot-svg {
+          width: 48px;
+          height: 62px;
+        }
+        #chatbot-badge {
+          width: 15px;
+          height: 15px;
+          font-size: 0.55rem;
+        }
+        #chatbot-window {
+          bottom: 0;
+          right: 0;
+          left: 0;
+          width: 100%;
+          max-width: 100vw;
+          height: 100%;
+          max-height: 100vh;
+          border-radius: 0;
+        }
+        #chatbot-header {
+          padding: 12px 16px;
+          font-size: 1rem;
+        }
+        #chatbot-messages {
+          padding: 12px;
+          gap: 10px;
+        }
+        .cb-msg {
+          max-width: 90%;
+          font-size: 0.95rem;
+          padding: 10px 14px;
+        }
+        #chatbot-input-row {
+          padding: 8px 10px;
+        }
+        #chatbot-input {
+          padding: 9px 14px;
+          font-size: 0.9rem;
+        }
+        #chatbot-send,
+        #chatbot-voice {
+          width: 36px;
+          height: 36px;
+        }
+      }
+
+      /* Tablet responsive chatbot */
+      @media (min-width: 601px) and (max-width: 900px) {
+        #chatbot-fab {
+          bottom: 75px;
+          right: 14px;
+          width: 70px;
+          height: 90px;
+        }
+        #chatbot-window {
+          width: 360px;
+          height: 480px;
+          bottom: 175px;
+        }
       }
     </style>
     <script>

@@ -858,6 +858,149 @@
           height: 50px;
         }
       }
+
+      /* ── Mobile responsive (max 600px) ── */
+      @media (max-width: 600px) {
+        .admin-header .container {
+          padding: 0 12px;
+          gap: 10px;
+        }
+        .admin-header .logo {
+          font-size: 1.1rem;
+        }
+        .admin-header .logo .span {
+          font-size: 0.55rem;
+          letter-spacing: 1px;
+        }
+        .back-link {
+          padding: 6px 14px;
+          font-size: 0.72rem;
+        }
+        .admin-container {
+          padding: 16px 10px 60px;
+        }
+
+        /* Tabs - horizontal scroll */
+        .tab-bar {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          gap: 0;
+        }
+        .tab-bar::-webkit-scrollbar {
+          display: none;
+        }
+        .tab-btn {
+          padding: 10px 14px;
+          font-size: 0.75rem;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+
+        /* Section heads */
+        .section-head h2 {
+          font-size: 1.2rem;
+        }
+
+        /* Cards */
+        .admin-card {
+          padding: 16px 14px;
+        }
+
+        /* Stats */
+        .stats-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        .stat-card {
+          padding: 14px 12px;
+        }
+        .stat-number {
+          font-size: 1.5rem;
+        }
+        .stat-label {
+          font-size: 0.7rem;
+        }
+
+        /* Charts */
+        .graph-row {
+          gap: 20px;
+        }
+        .pie-chart-wrap svg,
+        .donut-chart-wrap svg {
+          width: 140px;
+          height: 140px;
+        }
+        .horiz-bar-label {
+          min-width: 80px;
+          font-size: 0.7rem;
+        }
+        .line-chart-container {
+          padding: 10px;
+        }
+        .chart-container {
+          height: 130px;
+        }
+
+        /* Booking cards */
+        .booking-card {
+          padding: 14px 12px;
+        }
+        .booking-filters {
+          padding: 12px 14px;
+          gap: 8px;
+        }
+
+        /* Buttons */
+        .btn {
+          padding: 8px 16px;
+          font-size: 0.75rem;
+        }
+
+        /* Auth box */
+        .auth-box {
+          padding: 30px 24px;
+          margin: 0 16px;
+        }
+
+        /* Toast */
+        .toast {
+          right: 16px;
+          left: 16px;
+          bottom: 20px;
+          text-align: center;
+        }
+
+        /* AI chatbot full-screen on mobile */
+        #admin-ai-window {
+          bottom: 0;
+          right: 0;
+          left: 0;
+          width: 100%;
+          max-height: 100vh;
+          border-radius: 0;
+        }
+      }
+
+      /* ── Tablet responsive (601px - 900px) ── */
+      @media (min-width: 601px) and (max-width: 900px) {
+        .admin-container {
+          padding: 24px 16px 60px;
+        }
+        .tab-btn {
+          padding: 10px 18px;
+          font-size: 0.82rem;
+        }
+        .stats-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .graph-row {
+          gap: 24px;
+        }
+        .booking-card {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
     </style>
   </head>
 
@@ -1149,6 +1292,52 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Attribution -->
+    <div
+      style="
+        text-align: center;
+        padding: 20px 16px 12px;
+        font-size: 0.75rem;
+        color: hsl(0, 0%, 55%);
+      "
+    >
+      Created by
+      <a
+        href="https://github.com/Letsoperate"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: hsl(0, 0%, 40%); text-decoration: none; font-weight: 600"
+      >
+        <img
+          src="./assets/images/letsoperate-logo.png"
+          alt="Letsoperate"
+          style="
+            height: 18px;
+            width: auto;
+            vertical-align: middle;
+            border-radius: 3px;
+            margin: 0 3px;
+          "
+        />
+        Letsoperate
+      </a>
+      &middot;
+      <a
+        href="https://github.com/Letsoperate"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="
+          color: hsl(0, 0%, 40%);
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 3px;
+        "
+      >
+        <ion-icon name="logo-github" style="font-size: 14px"></ion-icon> GitHub
+      </a>
     </div>
 
     <!-- Toast -->
