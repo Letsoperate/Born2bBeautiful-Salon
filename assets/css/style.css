@@ -950,6 +950,7 @@ a.contact-link:is(:hover, :focus) {
 .site-attribution .github-link {
   display: inline-flex;
   align-items: center;
+  vertical-align: middle;
   gap: 4px;
 }
 
