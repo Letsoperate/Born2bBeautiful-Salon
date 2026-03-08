@@ -947,13 +947,6 @@ a.contact-link:is(:hover, :focus) {
   color: var(--indian-yellow);
 }
 
-.site-attribution .letsoperate-logo {
-  height: 16px;
-  width: auto;
-  border-radius: 3px;
-  vertical-align: middle;
-}
-
 .site-attribution .github-link {
   display: inline-flex;
   align-items: center;
