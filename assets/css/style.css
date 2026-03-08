@@ -928,11 +928,7 @@ a.contact-link:is(:hover, :focus) {
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid hsla(0, 0%, 100%, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex-wrap: wrap;
+  text-align: center;
   font-size: 0.78rem;
   color: hsla(0, 0%, 100%, 0.4);
 }
