@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin — BORN 2B BEAUTIFUL</title>
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Sora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Sora', sans-serif;
+        background: hsl(0, 0%, 95%);
+        color: hsl(0, 0%, 22%);
+        line-height: 1.6;
+      }
+
+      /* ── Header ── */
+      .admin-header {
+        background: hsl(0, 0%, 8%);
+        padding: 18px 0;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .admin-header .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .admin-header .logo {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        color: #fff;
+        text-decoration: none;
+        letter-spacing: 1px;
+      }
+      .admin-header .logo .span {
+        display: block;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.65rem;
+        font-weight: 400;
+        color: hsl(20, 55%, 52%);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 20px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #fff;
+        background: hsl(20, 55%, 52%);
+        border-radius: 50px;
+        text-decoration: none;
+        transition: background 0.3s;
+      }
+      .back-link:hover {
+        background: hsl(20, 55%, 44%);
+      }
+
+      /* ── Layout ── */
+      .admin-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 30px 20px 60px;
+      }
+
+      /* ── Tabs ── */
+      .tab-bar {
+        display: flex;
+        gap: 0;
+        margin-bottom: 30px;
+        border-bottom: 2px solid hsl(0, 0%, 88%);
+      }
+      .tab-btn {
+        padding: 12px 28px;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        background: none;
+        border: none;
+        border-bottom: 3px solid transparent;
+        color: hsl(0, 0%, 48%);
+        transition: all 0.2s;
+      }
+      .tab-btn:hover {
+        color: hsl(20, 55%, 52%);
+      }
+      .tab-btn.active {
+        color: hsl(20, 55%, 52%);
+        border-bottom-color: hsl(20, 55%, 52%);
+      }
+      .tab-panel {
+        display: none;
+      }
+      .tab-panel.active {
+        display: block;
+      }
+
+      /* ── Section title ── */
+      .section-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .section-head h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        color: hsl(0, 0%, 12%);
+      }
+
+      /* ── Cards ── */
+      .admin-card {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px hsla(0, 0%, 0%, 0.05);
+        padding: 22px 24px;
+        margin-bottom: 16px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr auto;
+        gap: 16px;
+        align-items: end;
+      }
+      .admin-card.advert-card {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      @media (max-width: 700px) {
+        .admin-card,
+        .admin-card.advert-card {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .field label {
+        display: block;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: hsl(0, 0%, 48%);
+        margin-bottom: 5px;
+      }
+      .field input,
+      .field select,
+      .field textarea {
+        width: 100%;
+        padding: 10px 14px;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.88rem;
+        border: 1.5px solid hsl(0, 0%, 85%);
+        border-radius: 8px;
+        background: hsl(0, 0%, 98%);
+        transition: border-color 0.2s;
+        color: hsl(0, 0%, 22%);
+      }
+      .field input:focus,
+      .field select:focus,
+      .field textarea:focus {
+        outline: none;
+        border-color: hsl(20, 55%, 52%);
+      }
+      .field textarea {
+        resize: vertical;
+        min-height: 70px;
+      }
+
+      /* ── Buttons ── */
+      .btn-group {
+        display: flex;
+        gap: 8px;
+        align-items: end;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 22px;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-primary {
+        background: hsl(20, 55%, 52%);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: hsl(20, 55%, 44%);
+      }
+      .btn-danger {
+        background: hsl(0, 65%, 55%);
+        color: #fff;
+      }
+      .btn-danger:hover {
+        background: hsl(0, 65%, 45%);
+      }
+      .btn-outline {
+        background: none;
+        border: 1.5px solid hsl(0, 0%, 80%);
+        color: hsl(0, 0%, 36%);
+      }
+      .btn-outline:hover {
+        border-color: hsl(20, 55%, 52%);
+        color: hsl(20, 55%, 52%);
+      }
+      .btn-success {
+        background: hsl(145, 55%, 42%);
+        color: #fff;
+      }
+      .btn-success:hover {
+        background: hsl(145, 55%, 35%);
+      }
+
+      /* ── Toast ── */
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        padding: 14px 28px;
+        border-radius: 10px;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #fff;
+        background: hsl(145, 55%, 42%);
+        box-shadow: 0 4px 20px hsla(0, 0%, 0%, 0.15);
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.3s;
+        z-index: 50;
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      /* ── Empty state ── */
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: hsl(0, 0%, 60%);
+      }
+      .empty-state p {
+        margin-bottom: 16px;
+      }
+
+      /* ── Password overlay ── */
+      .auth-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: hsl(0, 0%, 8%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .auth-overlay.hidden {
+        display: none;
+      }
+      .auth-box {
+        background: #fff;
+        border-radius: 16px;
+        padding: 40px 36px;
+        max-width: 380px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 8px 40px hsla(0, 0%, 0%, 0.2);
+      }
+      .auth-box h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+      }
+      .auth-box p {
+        font-size: 0.85rem;
+        color: hsl(0, 0%, 48%);
+        margin-bottom: 24px;
+      }
+      .auth-box input {
+        width: 100%;
+        padding: 12px 16px;
+        font-family: 'Sora', sans-serif;
+        font-size: 1rem;
+        border: 1.5px solid hsl(0, 0%, 85%);
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+      .auth-box input:focus {
+        outline: none;
+        border-color: hsl(20, 55%, 52%);
+      }
+      .auth-error {
+        color: hsl(0, 65%, 55%);
+        font-size: 0.82rem;
+        display: none;
+        margin-bottom: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Password gate -->
+    <div class="auth-overlay" id="authOverlay">
+      <div class="auth-box">
+        <h2>Admin Access</h2>
+        <p>Enter the admin password to continue.</p>
+        <input
+          type="password"
+          id="authPassword"
+          placeholder="Password"
+          autofocus
+        />
+        <p class="auth-error" id="authError">Incorrect password. Try again.</p>
+        <button
+          class="btn btn-primary"
+          style="width: 100%; justify-content: center"
+          onclick="checkAuth()"
+        >
+          Sign In
+        </button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="admin-header">
+      <div class="container">
+        <a href="index.html" class="logo">
+          BORN 2B BEAUTIFUL
+          <span class="span">Admin Panel</span>
+        </a>
+        <a href="index.html" class="back-link">&larr; View Site</a>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <div class="admin-container" id="adminContent" style="display: none">
+      <!-- Tabs -->
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="pricing">
+          Service Pricing
+        </button>
+        <button class="tab-btn" data-tab="adverts">Adverts / News</button>
+        <button class="tab-btn" data-tab="settings">Settings</button>
+      </div>
+
+      <!-- ═══ PRICING TAB ═══ -->
+      <div class="tab-panel active" id="tab-pricing">
+        <div class="section-head">
+          <h2>Service Pricing</h2>
+          <button class="btn btn-primary" onclick="saveAllPrices()">
+            Save All Changes
+          </button>
+        </div>
+        <div id="pricingList"></div>
+      </div>
+
+      <!-- ═══ ADVERTS TAB ═══ -->
+      <div class="tab-panel" id="tab-adverts">
+        <div class="section-head">
+          <h2>Adverts / News</h2>
+          <button class="btn btn-primary" onclick="showAddAdvert()">
+            + Add New Advert
+          </button>
+        </div>
+
+        <!-- New advert form (hidden by default) -->
+        <div
+          id="newAdvertForm"
+          style="display: none"
+          class="admin-card advert-card"
+        >
+          <div class="field">
+            <label>Title</label>
+            <input
+              type="text"
+              id="newAdvTitle"
+              placeholder="e.g. Summer Special"
+            />
+          </div>
+          <div class="field">
+            <label>Date</label>
+            <input type="date" id="newAdvDate" />
+          </div>
+          <div class="field" style="grid-column: 1 / -1">
+            <label>Image URL (relative path or full URL)</label>
+            <input
+              type="text"
+              id="newAdvImage"
+              placeholder="./assets/images/footer-blog-1.jpg"
+            />
+          </div>
+          <div class="btn-group" style="grid-column: 1 / -1">
+            <button class="btn btn-success" onclick="addAdvert()">
+              Add Advert
+            </button>
+            <button class="btn btn-outline" onclick="hideAddAdvert()">
+              Cancel
+            </button>
+          </div>
+        </div>
+
+        <div id="advertList"></div>
+      </div>
+
+      <!-- ═══ SETTINGS TAB ═══ -->
+      <div class="tab-panel" id="tab-settings">
+        <div class="section-head">
+          <h2>Settings</h2>
+        </div>
+
+        <div class="admin-card" style="grid-template-columns: 1fr">
+          <div class="field">
+            <label>Admin Password</label>
+            <input
+              type="password"
+              id="settingsPassword"
+              placeholder="Enter new password"
+            />
+          </div>
+          <div class="btn-group" style="margin-top: 8px">
+            <button class="btn btn-primary" onclick="changePassword()">
+              Update Password
+            </button>
+            <button class="btn btn-danger" onclick="resetAll()">
+              Reset All Data
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+      'use strict'
+
+      /* ============================================================
+       DATA — default values read from the HTML source
+       ============================================================ */
+
+      const DEFAULT_SERVICES = [
+        {
+          id: 1,
+          name: 'Acrylic with Tips',
+          subtitle: 'Short to XL Long',
+          duration: '60–90 min',
+          price: 200,
+          prefix: 'From ',
+          category: 'manicure',
+          image: './assets/images/pricing-1.jpg',
+        },
+        {
+          id: 2,
+          name: 'Gel Overlay',
+          subtitle: '',
+          duration: '45 min',
+          price: 180,
+          prefix: 'From ',
+          category: 'manicure',
+          image: './assets/images/pricing-2.jpg',
+        },
+        {
+          id: 3,
+          name: 'Buff & Shine',
+          subtitle: '',
+          duration: '40 min',
+          price: 100,
+          prefix: 'From ',
+          category: 'pedicure',
+          image: './assets/images/pricing-3.jpg',
+        },
+        {
+          id: 4,
+          name: 'Foot Scrub & Color',
+          subtitle: 'Scrub with color on toes',
+          duration: '30 min',
+          price: 200,
+          prefix: '',
+          category: 'pedicure',
+          image: './assets/images/pricing-4 .jpg',
+        },
+        {
+          id: 5,
+          name: 'Foot Massage',
+          subtitle: '',
+          duration: '30 min',
+          price: 120,
+          prefix: '',
+          category: 'manicure',
+          image: './assets/images/pricing-5 .jpg',
+        },
+        {
+          id: 6,
+          name: 'Eyelashes',
+          subtitle: 'Classic strip lashes',
+          duration: '60 min',
+          price: 200,
+          prefix: '',
+          category: 'eyelashes',
+          image: './assets/images/pricing-6.jpg',
+        },
+        {
+          id: 7,
+          name: 'Individual Lashes',
+          subtitle: 'One-by-one application',
+          duration: '120 min',
+          price: 200,
+          prefix: 'From ',
+          category: 'eyelashes',
+          image: './assets/images/pricing-7.jpg',
+        },
+        {
+          id: 8,
+          name: 'Make-Up with Lashes',
+          subtitle: 'Full glam package',
+          duration: '60–90 min',
+          price: 250,
+          prefix: 'From ',
+          category: 'make-up',
+          image: './assets/images/pricing-8.jpg',
+        },
+        {
+          id: 9,
+          name: 'Make-Up without Lashes',
+          subtitle: 'Flawless finish only',
+          duration: '60 min',
+          price: 200,
+          prefix: 'From ',
+          category: 'make-up',
+          image: './assets/images/pricing-9.jpg',
+        },
+      ]
+
+      const DEFAULT_ADVERTS = [
+        {
+          id: 1,
+          title: 'Valentines Day Special LOVE MONTH Spending the Love',
+          date: '2023-02-02',
+          image: './assets/images/footer-blog-1.jpg',
+        },
+        {
+          id: 2,
+          title: 'Black Friday Wig Special Valid until November 2022',
+          date: '2022-11-30',
+          image: './assets/images/footer-blog-2.jpg',
+        },
+        {
+          id: 3,
+          title: 'Summer Glow Special Get Ready for the Season',
+          date: '2023-09-15',
+          image: './assets/images/footer-blog-1.jpg',
+        },
+      ]
+
+      const DEFAULT_PASSWORD = 'born2b2024'
+
+      /* ============================================================
+       STORAGE helpers
+       ============================================================ */
+
+      function loadServices() {
+        const raw = localStorage.getItem('b2b_services')
+        return raw
+          ? JSON.parse(raw)
+          : JSON.parse(JSON.stringify(DEFAULT_SERVICES))
+      }
+
+      function saveServices(list) {
+        localStorage.setItem('b2b_services', JSON.stringify(list))
+      }
+
+      function loadAdverts() {
+        const raw = localStorage.getItem('b2b_adverts')
+        return raw
+          ? JSON.parse(raw)
+          : JSON.parse(JSON.stringify(DEFAULT_ADVERTS))
+      }
+
+      function saveAdverts(list) {
+        localStorage.setItem('b2b_adverts', JSON.stringify(list))
+      }
+
+      function getPassword() {
+        return localStorage.getItem('b2b_admin_pw') || DEFAULT_PASSWORD
+      }
+
+      /* ============================================================
+       AUTH
+       ============================================================ */
+
+      function checkAuth() {
+        const input = document.getElementById('authPassword')
+        const pw = getPassword()
+        if (input.value === pw) {
+          document.getElementById('authOverlay').classList.add('hidden')
+          document.getElementById('adminContent').style.display = ''
+          sessionStorage.setItem('b2b_authed', '1')
+        } else {
+          document.getElementById('authError').style.display = 'block'
+          input.value = ''
+          input.focus()
+        }
+      }
+
+      // Allow Enter key on password field
+      document
+        .getElementById('authPassword')
+        .addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') checkAuth()
+        })
+
+      // Restore session
+      if (sessionStorage.getItem('b2b_authed') === '1') {
+        document.getElementById('authOverlay').classList.add('hidden')
+        document.getElementById('adminContent').style.display = ''
+      }
+
+      /* ============================================================
+       TABS
+       ============================================================ */
+
+      document.querySelectorAll('.tab-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          document.querySelector('.tab-btn.active').classList.remove('active')
+          document.querySelector('.tab-panel.active').classList.remove('active')
+          btn.classList.add('active')
+          document
+            .getElementById('tab-' + btn.dataset.tab)
+            .classList.add('active')
+        })
+      })
+
+      /* ============================================================
+       TOAST
+       ============================================================ */
+
+      function showToast(msg) {
+        const t = document.getElementById('toast')
+        t.textContent = msg
+        t.classList.add('show')
+        setTimeout(() => t.classList.remove('show'), 2500)
+      }
+
+      /* ============================================================
+       PRICING
+       ============================================================ */
+
+      const CATEGORIES = [
+        'manicure',
+        'pedicure',
+        'eyelashes',
+        'make-up',
+        'combo deals',
+      ]
+
+      function renderPricing() {
+        const list = loadServices()
+        const container = document.getElementById('pricingList')
+        if (!list.length) {
+          container.innerHTML =
+            '<div class="empty-state"><p>No services yet.</p></div>'
+          return
+        }
+        container.innerHTML = list
+          .map(
+            (s, i) => `
+        <div class="admin-card" data-index="${i}">
+          <div class="field">
+            <label>Service Name</label>
+            <input type="text" value="${escapeHtml(s.name)}" data-key="name" />
+          </div>
+          <div class="field">
+            <label>Category</label>
+            <select data-key="category">
+              ${CATEGORIES.map((c) => `<option value="${c}" ${c === s.category ? 'selected' : ''}>${c.charAt(0).toUpperCase() + c.slice(1)}</option>`).join('')}
+            </select>
+          </div>
+          <div class="field">
+            <label>Price (R)</label>
+            <input type="number" value="${s.price}" min="0" data-key="price" />
+          </div>
+          <div class="field">
+            <label>Prefix (e.g. "From ")</label>
+            <input type="text" value="${escapeHtml(s.prefix)}" data-key="prefix" />
+          </div>
+          <div class="field">
+            <label>Subtitle</label>
+            <input type="text" value="${escapeHtml(s.subtitle)}" data-key="subtitle" />
+          </div>
+          <div class="field">
+            <label>Duration</label>
+            <input type="text" value="${escapeHtml(s.duration)}" data-key="duration" />
+          </div>
+        </div>
+      `,
+          )
+          .join('')
+      }
+
+      function saveAllPrices() {
+        const cards = document.querySelectorAll('#pricingList .admin-card')
+        const list = loadServices()
+        cards.forEach((card, i) => {
+          if (!list[i]) return
+          list[i].name = card.querySelector('[data-key="name"]').value.trim()
+          list[i].category = card.querySelector('[data-key="category"]').value
+          list[i].price =
+            parseInt(card.querySelector('[data-key="price"]').value, 10) || 0
+          list[i].prefix = card.querySelector('[data-key="prefix"]').value
+          list[i].subtitle = card
+            .querySelector('[data-key="subtitle"]')
+            .value.trim()
+          list[i].duration = card
+            .querySelector('[data-key="duration"]')
+            .value.trim()
+        })
+        saveServices(list)
+        showToast('Prices saved! Changes will appear on the site.')
+      }
+
+      /* ============================================================
+       ADVERTS
+       ============================================================ */
+
+      function renderAdverts() {
+        const list = loadAdverts()
+        const container = document.getElementById('advertList')
+        if (!list.length) {
+          container.innerHTML =
+            '<div class="empty-state"><p>No adverts yet. Click "+ Add New Advert" to create one.</p></div>'
+          return
+        }
+        container.innerHTML = list
+          .map(
+            (a, i) => `
+        <div class="admin-card advert-card" data-adv-index="${i}">
+          <div class="field">
+            <label>Title</label>
+            <input type="text" value="${escapeHtml(a.title)}" data-key="title" />
+          </div>
+          <div class="field">
+            <label>Date</label>
+            <input type="date" value="${a.date}" data-key="date" />
+          </div>
+          <div class="field" style="grid-column: 1 / -1;">
+            <label>Image Path</label>
+            <input type="text" value="${escapeHtml(a.image)}" data-key="image" />
+          </div>
+          <div class="btn-group" style="grid-column: 1 / -1;">
+            <button class="btn btn-primary" onclick="saveAdvert(${i})">Save</button>
+            <button class="btn btn-danger" onclick="deleteAdvert(${i})">Delete</button>
+          </div>
+        </div>
+      `,
+          )
+          .join('')
+      }
+
+      function showAddAdvert() {
+        document.getElementById('newAdvertForm').style.display = ''
+        document.getElementById('newAdvTitle').focus()
+      }
+
+      function hideAddAdvert() {
+        document.getElementById('newAdvertForm').style.display = 'none'
+      }
+
+      function addAdvert() {
+        const title = document.getElementById('newAdvTitle').value.trim()
+        const date = document.getElementById('newAdvDate').value
+        const image =
+          document.getElementById('newAdvImage').value.trim() ||
+          './assets/images/footer-blog-1.jpg'
+        if (!title) {
+          showToast('Please enter a title.')
+          return
+        }
+        if (!date) {
+          showToast('Please pick a date.')
+          return
+        }
+
+        const list = loadAdverts()
+        const maxId = list.reduce((m, a) => Math.max(m, a.id || 0), 0)
+        list.push({ id: maxId + 1, title, date, image })
+        saveAdverts(list)
+
+        // Clear form
+        document.getElementById('newAdvTitle').value = ''
+        document.getElementById('newAdvDate').value = ''
+        document.getElementById('newAdvImage').value = ''
+        hideAddAdvert()
+        renderAdverts()
+        showToast('Advert added!')
+      }
+
+      function saveAdvert(index) {
+        const list = loadAdverts()
+        const card = document.querySelector(`[data-adv-index="${index}"]`)
+        if (!card || !list[index]) return
+        list[index].title = card
+          .querySelector('[data-key="title"]')
+          .value.trim()
+        list[index].date = card.querySelector('[data-key="date"]').value
+        list[index].image = card
+          .querySelector('[data-key="image"]')
+          .value.trim()
+        saveAdverts(list)
+        showToast('Advert updated!')
+      }
+
+      function deleteAdvert(index) {
+        if (!confirm('Delete this advert?')) return
+        const list = loadAdverts()
+        list.splice(index, 1)
+        saveAdverts(list)
+        renderAdverts()
+        showToast('Advert deleted.')
+      }
+
+      /* ============================================================
+       SETTINGS
+       ============================================================ */
+
+      function changePassword() {
+        const pw = document.getElementById('settingsPassword').value
+        if (pw.length < 4) {
+          showToast('Password must be at least 4 characters.')
+          return
+        }
+        localStorage.setItem('b2b_admin_pw', pw)
+        document.getElementById('settingsPassword').value = ''
+        showToast('Password updated!')
+      }
+
+      function resetAll() {
+        if (
+          !confirm(
+            'This will reset ALL prices and adverts to their original values. Continue?',
+          )
+        )
+          return
+        localStorage.removeItem('b2b_services')
+        localStorage.removeItem('b2b_adverts')
+        renderPricing()
+        renderAdverts()
+        showToast('All data reset to defaults.')
+      }
+
+      /* ============================================================
+       HELPERS
+       ============================================================ */
+
+      function escapeHtml(str) {
+        if (!str) return ''
+        return str
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+      }
+
+      /* ── INIT ── */
+      renderPricing()
+      renderAdverts()
+    </script>
+  </body>
+</html>

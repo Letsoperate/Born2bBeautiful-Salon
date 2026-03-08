@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery — BORN 2B BEAUTIFUL</title>
+    <meta name="title" content="Gallery — BORN 2B BEAUTIFUL" />
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Sora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Sora', sans-serif;
+        background-color: hsl(0, 0%, 95%);
+        color: hsl(0, 0%, 22%);
+        line-height: 1.6;
+      }
+
+      /* ── Top bar ── */
+      .gallery-header {
+        background-color: hsl(0, 0%, 8%);
+        padding: 20px 0;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .gallery-header .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .gallery-header .logo {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.6rem;
+        color: hsl(0, 0%, 100%);
+        text-decoration: none;
+        letter-spacing: 1px;
+      }
+
+      .gallery-header .logo .span {
+        display: block;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 400;
+        color: hsl(20, 55%, 52%);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 24px;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: hsl(0, 0%, 100%);
+        background-color: hsl(20, 55%, 52%);
+        border: none;
+        border-radius: 50px;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          background-color 0.3s,
+          transform 0.2s;
+      }
+
+      .back-btn:hover {
+        background-color: hsl(20, 55%, 44%);
+        transform: translateY(-2px);
+      }
+
+      /* ── Hero banner ── */
+      .gallery-hero {
+        text-align: center;
+        padding: 60px 20px 40px;
+        background: linear-gradient(135deg, hsl(0, 0%, 8%), hsl(0, 0%, 16%));
+        color: hsl(0, 0%, 100%);
+      }
+
+      .gallery-hero h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+      }
+
+      .gallery-hero p {
+        font-size: 1rem;
+        color: hsla(0, 0%, 100%, 0.6);
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      /* ── Filter tabs ── */
+      .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 30px 20px 10px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .filter-tab {
+        padding: 8px 22px;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border: 1.5px solid hsl(0, 0%, 80%);
+        border-radius: 50px;
+        background: transparent;
+        color: hsl(0, 0%, 36%);
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .filter-tab:hover {
+        border-color: hsl(20, 55%, 52%);
+        color: hsl(20, 55%, 52%);
+      }
+
+      .filter-tab.active {
+        background-color: hsl(20, 55%, 52%);
+        border-color: hsl(20, 55%, 52%);
+        color: hsl(0, 0%, 100%);
+      }
+
+      /* ── Gallery grid ── */
+      .gallery-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px 20px 60px;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+        list-style: none;
+      }
+
+      /* ── Card ── */
+      .gallery-item {
+        border-radius: 14px;
+        overflow: hidden;
+        background: hsl(0, 0%, 100%);
+        box-shadow: 0 2px 12px hsla(0, 0%, 0%, 0.06);
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+      }
+
+      .gallery-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 28px hsla(0, 0%, 0%, 0.1);
+      }
+
+      .gallery-item[data-hidden='true'] {
+        display: none;
+      }
+
+      .gallery-item .img-wrap {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 4 / 5;
+      }
+
+      .gallery-item .img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s;
+      }
+
+      .gallery-item:hover .img-wrap img {
+        transform: scale(1.05);
+      }
+
+      .gallery-item .badge {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        padding: 4px 14px;
+        font-size: 0.68rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 50px;
+        background: hsl(20, 55%, 52%);
+        color: hsl(0, 0%, 100%);
+      }
+
+      .gallery-item .card-body {
+        padding: 18px 20px 22px;
+      }
+
+      .gallery-item .card-body h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.15rem;
+        margin-bottom: 6px;
+        color: hsl(0, 0%, 12%);
+      }
+
+      .gallery-item .card-body p {
+        font-size: 0.82rem;
+        color: hsl(0, 0%, 48%);
+        line-height: 1.5;
+      }
+
+      /* ── Lightbox ── */
+      .lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: hsla(0, 0%, 0%, 0.88);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .lightbox.active {
+        display: flex;
+      }
+
+      .lightbox img {
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: 10px;
+        object-fit: contain;
+        animation: fadeInUp 0.3s ease;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 24px;
+        right: 28px;
+        font-size: 2rem;
+        color: hsl(0, 0%, 100%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        line-height: 1;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── Responsive ── */
+      @media (max-width: 600px) {
+        .gallery-hero h1 {
+          font-size: 2rem;
+        }
+
+        .gallery-grid {
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+          gap: 16px;
+        }
+
+        .gallery-header .logo {
+          font-size: 1.2rem;
+        }
+
+        .back-btn {
+          padding: 8px 16px;
+          font-size: 0.78rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="gallery-header">
+      <div class="container">
+        <a href="index.html" class="logo">
+          BORN 2B BEAUTIFUL
+          <span class="span">Nail and Beauty Salon</span>
+        </a>
+        <a href="index.html#gallery" class="back-btn"> &larr; Back to Home </a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="gallery-hero">
+      <h1>Our Gallery</h1>
+      <p>A showcase of our finest work — nails, lashes, make-up and more.</p>
+    </section>
+
+    <!-- Filter tabs -->
+    <div class="filter-bar">
+      <button class="filter-tab active" data-filter="all">All</button>
+      <button class="filter-tab" data-filter="manicure">Manicure</button>
+      <button class="filter-tab" data-filter="pedicure">Pedicure</button>
+      <button class="filter-tab" data-filter="eyelashes">Eyelashes</button>
+      <button class="filter-tab" data-filter="make-up">Make-Up</button>
+    </div>
+
+    <!-- Gallery grid -->
+    <div class="gallery-container">
+      <ul class="gallery-grid">
+        <!-- ═══ MANICURE ═══ -->
+        <li class="gallery-item" data-category="manicure">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/gallery-21.jpg"
+              alt="Acrylic Nails with Tips"
+              loading="lazy"
+            />
+            <span class="badge">Manicure</span>
+          </div>
+          <div class="card-body">
+            <h3>Acrylic with Tips</h3>
+            <p>
+              Full set acrylic nail extensions with gel polish finish — short to
+              XL length options.
+            </p>
+          </div>
+        </li>
+
+        <li class="gallery-item" data-category="manicure">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/pricing-1.jpg"
+              alt="Gel Overlay Manicure"
+              loading="lazy"
+            />
+            <span class="badge">Manicure</span>
+          </div>
+          <div class="card-body">
+            <h3>Gel Overlay</h3>
+            <p>
+              Strengthening gel overlay on natural nails for a smooth, glossy
+              finish that lasts.
+            </p>
+          </div>
+        </li>
+
+        <li class="gallery-item" data-category="manicure">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/pricing-2.jpg"
+              alt="Nail Art Design"
+              loading="lazy"
+            />
+            <span class="badge">Manicure</span>
+          </div>
+          <div class="card-body">
+            <h3>Nail Art Design</h3>
+            <p>
+              Custom hand-painted nail art — from subtle accents to bold,
+              creative designs.
+            </p>
+          </div>
+        </li>
+
+        <li class="gallery-item" data-category="manicure">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/gallery-41.jpg"
+              alt="Nail Effect Polish"
+              loading="lazy"
+            />
+            <span class="badge">Manicure</span>
+          </div>
+          <div class="card-body">
+            <h3>Nail Effect Polish</h3>
+            <p>
+              Chrome, marble and glitter effect finishes for a statement look.
+            </p>
+          </div>
+        </li>
+
+        <!-- ═══ PEDICURE ═══ -->
+        <li class="gallery-item" data-category="pedicure">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/pricing-3.jpg"
+              alt="Buff & Shine Pedicure"
+              loading="lazy"
+            />
+            <span class="badge">Pedicure</span>
+          </div>
+          <div class="card-body">
+            <h3>Buff &amp; Shine</h3>
+            <p>
+              A quick pamper — nail shaping, buffing and a natural high-shine
+              finish.
+            </p>
+          </div>
+        </li>
+
+        <li class="gallery-item" data-category="pedicure">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/gallery-31.jpg"
+              alt="Foot Scrub & Color Pedicure"
+              loading="lazy"
+            />
+            <span class="badge">Pedicure</span>
+          </div>
+          <div class="card-body">
+            <h3>Foot Scrub &amp; Color</h3>
+            <p>
+              Deep exfoliating foot scrub followed by a fresh gel color
+              application.
+            </p>
+          </div>
+        </li>
+
+        <li class="gallery-item" data-category="pedicure">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/gallery-11.jpg"
+              alt="Foot Massage Treatment"
+              loading="lazy"
+            />
+            <span class="badge">Pedicure</span>
+          </div>
+          <div class="card-body">
+            <h3>Foot Massage</h3>
+            <p>
+              Relaxing foot massage with moisturising treatment for soft,
+              refreshed feet.
+            </p>
+          </div>
+        </li>
+
+        <!-- ═══ EYELASHES ═══ -->
+        <li class="gallery-item" data-category="eyelashes">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/pricing-6.jpg"
+              alt="Strip Eyelashes"
+              loading="lazy"
+            />
+            <span class="badge">Eyelashes</span>
+          </div>
+          <div class="card-body">
+            <h3>Eyelashes</h3>
+            <p>
+              Full strip lash application for instant volume and a glamorous
+              look.
+            </p>
+          </div>
+        </li>
+
+        <li class="gallery-item" data-category="eyelashes">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/pricing-7.jpg"
+              alt="Individual Lash Extensions"
+              loading="lazy"
+            />
+            <span class="badge">Eyelashes</span>
+          </div>
+          <div class="card-body">
+            <h3>Individual Lashes</h3>
+            <p>
+              Lash-by-lash extensions for a natural, wispy finish that lasts up
+              to 3 weeks.
+            </p>
+          </div>
+        </li>
+
+        <!-- ═══ MAKE-UP ═══ -->
+        <li class="gallery-item" data-category="make-up">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/pricing-8.jpg"
+              alt="Full Make-Up with Lashes"
+              loading="lazy"
+            />
+            <span class="badge">Make-Up</span>
+          </div>
+          <div class="card-body">
+            <h3>Make-Up with Lashes</h3>
+            <p>
+              Full glam make-up application with strip lashes — perfect for
+              events and special occasions.
+            </p>
+          </div>
+        </li>
+
+        <li class="gallery-item" data-category="make-up">
+          <div class="img-wrap">
+            <img
+              src="./assets/images/pricing-9.jpg"
+              alt="Make-Up without Lashes"
+              loading="lazy"
+            />
+            <span class="badge">Make-Up</span>
+          </div>
+          <div class="card-body">
+            <h3>Make-Up without Lashes</h3>
+            <p>
+              Flawless everyday or bridal make-up — foundation, contour, lips
+              and eye look.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" aria-label="Close">&times;</button>
+      <img src="" alt="" />
+    </div>
+
+    <script>
+      'use strict'
+
+      // ── Filter tabs ──
+      const tabs = document.querySelectorAll('.filter-tab')
+      const items = document.querySelectorAll('.gallery-item')
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          document
+            .querySelector('.filter-tab.active')
+            .classList.remove('active')
+          tab.classList.add('active')
+
+          const cat = tab.dataset.filter
+          items.forEach((item) => {
+            if (cat === 'all' || item.dataset.category === cat) {
+              item.removeAttribute('data-hidden')
+            } else {
+              item.setAttribute('data-hidden', 'true')
+            }
+          })
+        })
+      })
+
+      // ── Lightbox ──
+      const lightbox = document.getElementById('lightbox')
+      const lbImg = lightbox.querySelector('img')
+      const lbClose = lightbox.querySelector('.lightbox-close')
+
+      document.querySelectorAll('.gallery-item .img-wrap').forEach((wrap) => {
+        wrap.style.cursor = 'pointer'
+        wrap.addEventListener('click', () => {
+          const src = wrap.querySelector('img').src
+          const alt = wrap.querySelector('img').alt
+          lbImg.src = src
+          lbImg.alt = alt
+          lightbox.classList.add('active')
+        })
+      })
+
+      lbClose.addEventListener('click', () =>
+        lightbox.classList.remove('active'),
+      )
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) lightbox.classList.remove('active')
+      })
+
+      // Close with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') lightbox.classList.remove('active')
+      })
+
+      // ── Auto-filter from URL hash ──
+      const hash = window.location.hash.replace('#', '')
+      if (hash) {
+        const matchingTab = document.querySelector(
+          `.filter-tab[data-filter="${hash}"]`,
+        )
+        if (matchingTab) matchingTab.click()
+      }
+    </script>
+
+    <!-- Visit tracking -->
+    <script src="config.js"></script>
+    <script>
+      ;(function () {
+        var cfg = window.B2B_CONFIG
+        if (!cfg) return
+        var REST = cfg.SUPABASE_URL + '/rest/v1/'
+        fetch(REST + 'site_visits', {
+          method: 'POST',
+          headers: {
+            apikey: cfg.SUPABASE_ANON_KEY,
+            Authorization: 'Bearer ' + cfg.SUPABASE_ANON_KEY,
+            'Content-Type': 'application/json',
+            Prefer: 'return=minimal',
+          },
+          body: JSON.stringify({
+            page: '/gallery',
+            referrer: document.referrer || null,
+            user_agent: navigator.userAgent || null,
+          }),
+        }).catch(function () {})
+      })()
+    </script>
+  </body>
+</html>

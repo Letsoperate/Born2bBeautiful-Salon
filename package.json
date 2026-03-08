@@ -1,0 +1,9 @@
+{
+  "name": "born2bbeautiful-salon",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node generate-config.js"
+  },
+  "dependencies": {}
+}
