@@ -948,9 +948,9 @@ a.contact-link:is(:hover, :focus) {
 }
 
 .site-attribution .letsoperate-logo {
-  height: 22px;
+  height: 16px;
   width: auto;
-  border-radius: 4px;
+  border-radius: 3px;
   vertical-align: middle;
 }
 
